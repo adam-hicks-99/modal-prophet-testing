@@ -17,11 +17,12 @@ app = modal.App("prophet-performance-test")
 # Define the image with all dependencies
 image = (
     modal.Image.debian_slim(python_version="3.11")
+    .apt_install("build-essential")  # Required for compiling cmdstan
     .pip_install(
-        "prophet>=1.1.5",
         "pandas>=2.0.0",
         "numpy>=1.24.0",
-        "pystan<3.0",  # Prophet requires pystan 2.x
+        "cmdstanpy>=1.2.0",  # Prophet uses cmdstanpy, not pystan
+        "prophet>=1.1.5",
     )
 )
 
